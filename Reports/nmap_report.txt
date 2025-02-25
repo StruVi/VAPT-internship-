@@ -1,0 +1,83 @@
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-02-25 21:58 India Standard Time
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00015s latency).
+Other addresses for localhost (not scanned): ::1
+rDNS record for 127.0.0.1: kubernetes.docker.internal
+
+PORT     STATE SERVICE VERSION
+3000/tcp open  ppp?
+| fingerprint-strings: 
+|   GetRequest: 
+|     HTTP/1.1 200 OK
+|     Access-Control-Allow-Origin: *
+|     X-Content-Type-Options: nosniff
+|     X-Frame-Options: SAMEORIGIN
+|     Feature-Policy: payment 'self'
+|     X-Recruiting: /#/jobs
+|     Accept-Ranges: bytes
+|     Cache-Control: public, max-age=0
+|     Last-Modified: Tue, 25 Feb 2025 16:19:38 GMT
+|     ETag: W/"ea4-1953de82238"
+|     Content-Type: text/html; charset=UTF-8
+|     Content-Length: 3748
+|     Vary: Accept-Encoding
+|     Date: Tue, 25 Feb 2025 16:28:45 GMT
+|     Connection: close
+|     <!--
+|     Copyright (c) 2014-2024 Bjoern Kimminich & the OWASP Juice Shop contributors.
+|     SPDX-License-Identifier: MIT
+|     --><!DOCTYPE html><html lang="en"><head>
+|     <meta charset="utf-8">
+|     <title>OWASP Juice Shop</title>
+|     <meta name="description" content="Probably the most modern and sophisticated insecure web application">
+|     <meta name="viewport" content="width=device-width, initial-scale=1">
+|     <link id="favicon" rel="icon" type="image/x-icon" href="asset
+|   HTTPOptions, RTSPRequest: 
+|     HTTP/1.1 204 No Content
+|     Access-Control-Allow-Origin: *
+|     Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+|     Vary: Access-Control-Request-Headers
+|     Content-Length: 0
+|     Date: Tue, 25 Feb 2025 16:28:45 GMT
+|     Connection: close
+|   Help, NCP: 
+|     HTTP/1.1 400 Bad Request
+|_    Connection: close
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port3000-TCP:V=7.95%I=7%D=2/25%Time=67BDEFBD%P=i686-pc-windows-windows%
+SF:r(GetRequest,105A,"HTTP/1\.1\x20200\x20OK\r\nAccess-Control-Allow-Origi
+SF:n:\x20\*\r\nX-Content-Type-Options:\x20nosniff\r\nX-Frame-Options:\x20S
+SF:AMEORIGIN\r\nFeature-Policy:\x20payment\x20'self'\r\nX-Recruiting:\x20/
+SF:#/jobs\r\nAccept-Ranges:\x20bytes\r\nCache-Control:\x20public,\x20max-a
+SF:ge=0\r\nLast-Modified:\x20Tue,\x2025\x20Feb\x202025\x2016:19:38\x20GMT\
+SF:r\nETag:\x20W/\"ea4-1953de82238\"\r\nContent-Type:\x20text/html;\x20cha
+SF:rset=UTF-8\r\nContent-Length:\x203748\r\nVary:\x20Accept-Encoding\r\nDa
+SF:te:\x20Tue,\x2025\x20Feb\x202025\x2016:28:45\x20GMT\r\nConnection:\x20c
+SF:lose\r\n\r\n<!--\n\x20\x20~\x20Copyright\x20\(c\)\x202014-2024\x20Bjoer
+SF:n\x20Kimminich\x20&\x20the\x20OWASP\x20Juice\x20Shop\x20contributors\.\
+SF:n\x20\x20~\x20SPDX-License-Identifier:\x20MIT\n\x20\x20--><!DOCTYPE\x20
+SF:html><html\x20lang=\"en\"><head>\n\x20\x20<meta\x20charset=\"utf-8\">\n
+SF:\x20\x20<title>OWASP\x20Juice\x20Shop</title>\n\x20\x20<meta\x20name=\"
+SF:description\"\x20content=\"Probably\x20the\x20most\x20modern\x20and\x20
+SF:sophisticated\x20insecure\x20web\x20application\">\n\x20\x20<meta\x20na
+SF:me=\"viewport\"\x20content=\"width=device-width,\x20initial-scale=1\">\
+SF:n\x20\x20<link\x20id=\"favicon\"\x20rel=\"icon\"\x20type=\"image/x-icon
+SF:\"\x20href=\"asset")%r(Help,2F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nC
+SF:onnection:\x20close\r\n\r\n")%r(NCP,2F,"HTTP/1\.1\x20400\x20Bad\x20Requ
+SF:est\r\nConnection:\x20close\r\n\r\n")%r(HTTPOptions,EA,"HTTP/1\.1\x2020
+SF:4\x20No\x20Content\r\nAccess-Control-Allow-Origin:\x20\*\r\nAccess-Cont
+SF:rol-Allow-Methods:\x20GET,HEAD,PUT,PATCH,POST,DELETE\r\nVary:\x20Access
+SF:-Control-Request-Headers\r\nContent-Length:\x200\r\nDate:\x20Tue,\x2025
+SF:\x20Feb\x202025\x2016:28:45\x20GMT\r\nConnection:\x20close\r\n\r\n")%r(
+SF:RTSPRequest,EA,"HTTP/1\.1\x20204\x20No\x20Content\r\nAccess-Control-All
+SF:ow-Origin:\x20\*\r\nAccess-Control-Allow-Methods:\x20GET,HEAD,PUT,PATCH
+SF:,POST,DELETE\r\nVary:\x20Access-Control-Request-Headers\r\nContent-Leng
+SF:th:\x200\r\nDate:\x20Tue,\x2025\x20Feb\x202025\x2016:28:45\x20GMT\r\nCo
+SF:nnection:\x20close\r\n\r\n");
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Aggressive OS guesses: Microsoft Windows 10 1809 - 21H2 (99%), Microsoft Windows 11 21H2 (98%), Microsoft Windows Server 2019 (97%), Microsoft Windows 10 1709 - 1803 (96%), Microsoft Windows 10 2004 - Windows 11 21H2 (95%), Microsoft Windows 10 1909 - 21H1 (94%), Microsoft Windows 10 1607 - 11 23H2 (93%), Microsoft Windows 10 21H1 (93%), Windows 11 21H2 (93%), Microsoft Windows 10 1703 (93%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 0 hops
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 24.71 seconds
