@@ -1,0 +1,172 @@
+# Web Application Vulnerability Assessment and Penetration Testing (VAPT) Report
+
+## 1. Introduction
+
+### Project Objective:
+The objective of this project is to identify and analyze security vulnerabilities in the OWASP Juice Shop web application. This assessment aims to detect critical vulnerabilities such as SQL Injection, Open Redirects, and Insecure Configurations and provide mitigation strategies.
+
+### Scope:
+- **Target**: OWASP Juice Shop (Localhost:3000)
+- **Environment**: Windows (Docker-based setup)
+- **Tools Used**: Nmap, OWASP ZAP
+
+## 2. Methodology
+
+### Testing Process:
+| Phase                   | Tools Used         | Description                                   |
+|-------------------------|--------------------|-----------------------------------------------|
+| Reconnaissance          | Nmap              | Gathered open ports, services, and headers.   |
+| Vulnerability Scanning  | OWASP ZAP         | Automated detection of common vulnerabilities.|
+| Analysis & Documentation| Manual Review     | Validated and documented the findings.        |
+
+## 3. Key Findings
+
+### Summary of Vulnerabilities:
+
+| Vulnerability                  | Severity  | Impact                                | Status    |
+|---------------------------------|-----------|---------------------------------------|-----------|
+| SQL Injection (Time & Error)    | High      | Database compromise, data leakage     | Confirmed |
+| Open Redirect                   | High      | Phishing, user redirection            | Confirmed |
+| Content Security Policy (CSP)   | Medium    | Increased XSS risk                    | Confirmed |
+| Session ID in URL               | Medium    | Session hijacking, information leak   | Confirmed |
+| Information Disclosure (Private IP) | Low  | Internal network exposure             | Confirmed |
+
+---
+
+## 4. Detailed Vulnerability Analysis
+
+### 1. SQL Injection (Time & Error-Based)
+
+**Description:**
+The application is vulnerable to SQL Injection in multiple endpoints, allowing attackers to manipulate database queries and extract sensitive information.
+
+**Evidence:**
+- Payload: `/api/Challenges/?name=Score Board' OR '1'='1 --`
+- Payload: `/rest/products/search?q='(`
+
+**Impact:**
+- Unauthorized database access.
+- Potential data modification and account takeover.
+
+**Mitigation Strategies:**
+1. Use parameterized queries:
+```javascript
+ db.query('SELECT * FROM users WHERE username = ?', [username]);
+```
+2. Implement strict input validation and sanitization.
+3. Adopt an ORM (Object-Relational Mapping) to manage database operations securely.
+
+---
+
+### 2. Open Redirect
+
+**Description:**
+The web application allows unvalidated user input to control redirects, enabling malicious websites to trick users.
+
+**Evidence:**
+- Vulnerable endpoint: `/redirect?to=https://malicious.com`
+
+**Impact:**
+- Phishing attacks.
+- Redirecting users to malicious domains.
+
+**Mitigation Strategies:**
+1. Validate redirect destinations against a trusted list.
+```javascript
+const allowedDomains = ['yourdomain.com'];
+if (!allowedDomains.includes(req.query.to)) {
+  return res.status(403).send('Forbidden');
+}
+```
+2. Implement strict URL validation to prevent open redirects.
+
+---
+
+### 3. Content Security Policy (CSP) Not Set
+
+**Description:**
+The absence of a CSP allows malicious scripts to be executed in the browser, increasing the risk of XSS attacks.
+
+**Evidence:**
+- No "Content-Security-Policy" header detected.
+
+**Impact:**
+- Cross-Site Scripting (XSS).
+- Data theft and session hijacking.
+
+**Mitigation Strategies:**
+1. Implement a strict CSP policy:
+```http
+Content-Security-Policy: default-src 'self';
+```
+2. Use middleware like `helmet.js` in Node.js to enforce CSP automatically.
+
+---
+
+### 4. Session ID in URL
+
+**Description:**
+The application uses session IDs in URLs, which can be exposed through logs and browser history.
+
+**Evidence:**
+- Session tracking through URL parameters.
+
+**Impact:**
+- Session hijacking.
+- Information leakage.
+
+**Mitigation Strategies:**
+1. Use secure cookies for session management:
+```javascript
+res.cookie('session', value, { httpOnly: true, secure: true });
+```
+2. Disable URL-based session tracking.
+
+---
+
+### 5. Information Disclosure (Private IP)
+
+**Description:**
+Internal IP addresses are disclosed in responses, aiding network reconnaissance.
+
+**Evidence:**
+- ZAP scan detected private IPs in HTTP responses.
+
+**Impact:**
+- Internal network exposure.
+- Increased risk of targeted attacks.
+
+**Mitigation Strategies:**
+1. Ensure sensitive internal details are not exposed in responses.
+2. Review and sanitize server error messages.
+
+---
+
+## 5. Recommendations
+
+1. **Prioritize High-Severity Vulnerabilities**: Focus on mitigating **SQL Injection** and **Open Redirect** issues.
+2. **Harden Security Headers**: Implement **CSP**, **HSTS**, and proper **CORS** policies.
+3. **Input Validation**: Apply strict validation and sanitation across all input fields.
+4. **Periodic Security Scans**: Automate regular security assessments using **Nmap** and **ZAP**.
+
+---
+
+## 6. Conclusion
+
+This VAPT assessment revealed multiple vulnerabilities across different risk levels. Critical vulnerabilities, including **SQL Injection** and **Open Redirect**, expose the application to significant threats. Mitigating these issues promptly will enhance the security posture of the web application.
+
+---
+
+## 7. Future Scope
+
+1. **Advanced Penetration Testing**: Conduct deeper testing for business logic flaws and race conditions.
+2. **Automated Monitoring**: Implement Continuous Integration (CI) security checks using automated scanning tools.
+3. **API Security Testing**: Extend testing coverage to APIs and third-party integrations.
+
+---
+
+## 8. References
+- OWASP Testing Guide: https://owasp.org/www-project-web-security-testing-guide/
+- Nmap Documentation: https://nmap.org/book/man.html
+- OWASP ZAP Guide: https://www.zaproxy.org/docs/
+
